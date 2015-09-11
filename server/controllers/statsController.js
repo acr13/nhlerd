@@ -1,6 +1,7 @@
 'use strict';
 
-const db = require('monk')('localhost/nhlerd');
+const database = require('../config/db');
+const db = require('monk')(database.uri);
 const rp = require('request-promise');
 const shortForms = require('../utils/shortForms');
 const R = require('ramda');
