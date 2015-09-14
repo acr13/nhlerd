@@ -7,7 +7,7 @@ const statsRouter = require('./statsRouter');
 const enhStatsRouter = require('./enhStatsRouter');
 
 router.get('/', function (req, res) {
-  return res.send('NHLerd API');
+  return res.send('NHLerd API 0.0.1');
 });
 
 router.use('/games', gameRouter);
