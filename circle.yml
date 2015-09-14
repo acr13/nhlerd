@@ -1,0 +1,6 @@
+deployment:
+  production:
+    branch: master
+    commands:
+      # Heroku staging deployment
+      - git push git@heroku.com:guarded-escarpment-1147.git $CIRCLE_SHA1:master
