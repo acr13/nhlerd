@@ -4,7 +4,7 @@
   "description": "NHL for nerds",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"No tests =)\" && exit 0",
     "babel-node": "babel-node --stage 0",
     "start": "./node_modules/.bin/babel-node  -- server/index.js",
     "dev": "nodemon --exec npm run babel-node -- server/index.js"
