@@ -7,7 +7,8 @@
     "test": "echo \"No tests =)\" && exit 0",
     "babel-node": "babel-node --stage 0",
     "start": "./node_modules/.bin/babel-node  -- server/index.js",
-    "dev": "nodemon --exec npm run babel-node -- server/index.js"
+    "dev": "nodemon --exec npm run babel-node -- server/index.js",
+    "postinstall": "./server/scripts/get-all-data.sh"
   },
   "author": "Alex Richardson",
   "license": "MIT",

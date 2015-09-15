@@ -2,6 +2,7 @@
 
 const database = require('../config/db');
 const db = require('monk')(database.uri);
+const Q = require('q');
 const R = require('ramda');
 const rp = require('request-promise');
 
@@ -23,12 +24,21 @@ let insertPlayerToDb = function (player) {
   enhStatsDb.insert(player);
 };
 
+let logStatus = function (success) {
+  if (success) {
+    console.log('Sucessfully parsed all player enhanced stats data.');
+  } else {
+    console.log('Unable to parse player enhanced stats.');
+  }
+
+  return Q.when(true);
+}
+
+let die = function () {
+  process.exit(0);
+}
+
 rp(BASE_ENH_STATS_URL)
   .then(parseStats)
-  .then(function (success) {
-    if (success) {
-      console.log('Sucessfully parsed all enhanced stats data.');
-    } else {
-      console.log('Unable to parse enhanced stats.');
-    }
-  });
+  .then(logStatus)
+  .then(die);
