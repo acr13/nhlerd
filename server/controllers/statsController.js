@@ -60,7 +60,7 @@ let getProperDb = function (type) {
   if (type === 'ev') {
     return Q.when({
       name: goalieEvDb,
-      sort: {sort: {shSavePctg: -1}}
+      sort: {sort: {evSavePctg: -1}}
     });
   } else if (type === 'pp') {
     return Q.when({
