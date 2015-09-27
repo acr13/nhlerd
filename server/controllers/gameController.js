@@ -1,10 +1,11 @@
 'use strict';
 
-let cheerio = require('cheerio');
-let rp = require('request-promise');
-let shortForms = require('../utils/shortForms');
+const cheerio = require('cheerio');
+const rp = require('request-promise');
+const shortForms = require('../utils/shortForms');
+const R = require('ramda');
 
-const BASE_GAMES_URL = 'http://www.nhl.com/ice/scores.htm?date=09/20/2015&season=20152016';
+const BASE_GAMES_URL = 'http://www.nhl.com/ice/scores.htm';
 const BASE_GAME_EXTENDED_URL = 'http://www.nhl.com/gamecenter/en/preview?id=';
 
 let find = function (req, res) {
@@ -18,14 +19,35 @@ let find = function (req, res) {
 let findByGameId = function (req, res) {
   var gameId = req.params.gameId;
 
-  console.log(gameId);
-
   rp(BASE_GAME_EXTENDED_URL + gameId)
     .then(function (resp) {
-      console.log(resp);
-      res.send('wtf');
+      res.send('abc');
     })
 };
+
+let findByTeamId = function (req, res) {
+  var teamName = shortForms[req.params.teamId];
+
+  if (!teamName) {
+    res.json({
+      success: false,
+      error: 'Invalid team name type'
+    });
+    return;
+  }
+
+  function filterGameByTeamName (game) {
+    return game.homeTeam === teamName
+      || game.awayTeam === teamName;
+  }
+
+  rp(BASE_GAMES_URL)
+    .then(getGamesFromHTML)
+    .then(R.filter(filterGameByTeamName))
+    .then(function (games) {
+      res.send(games);
+    });
+}
 
 let getGamesFromHTML = function (html) {
   var $ = cheerio.load(html);
@@ -57,3 +79,4 @@ let getGamesFromHTML = function (html) {
 
 exports.find = find;
 exports.findByGameId = findByGameId;
+exports.findByTeamId = findByTeamId;
