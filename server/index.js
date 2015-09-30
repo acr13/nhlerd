@@ -12,10 +12,10 @@ app.use(function (req, res, next) {
 
   // intercept OPTIONS method
   if ('OPTIONS' === req.method) {
-    res.send(200);
+    return res.send(200);
   }
   else {
-    next();
+    return next();
   }
 
   next();
