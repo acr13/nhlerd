@@ -6,7 +6,7 @@ const Q = require('q');
 const R = require('ramda');
 const rp = require('request-promise');
 
-const BASE_SPC_STATS_URL = 'http://www.nhl.com/stats/rest/grouped/skaters/season/powerplay?cayenneExp=seasonId=20142015%20and%20gameTypeId=2';
+const BASE_SPC_STATS_URL = 'http://www.nhl.com/stats/rest/grouped/skaters/season/powerplay?cayenneExp=seasonId=20152016%20and%20gameTypeId=2';
 const spcStatsDb = db.get('spcStats');
 spcStatsDb.remove({});
 
