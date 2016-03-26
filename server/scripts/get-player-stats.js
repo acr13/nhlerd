@@ -1,11 +1,10 @@
-'use strict';
-
 const database = require('../config/db');
 const db = require('monk')(database.uri);
 const rp = require('request-promise');
 const R = require('ramda');
 
-const BASE_STATS_URL = 'http://www.nhl.com/stats/rest/grouped/skaters/season/skatersummary?cayenneExp=seasonId=20142015%20and%20gameTypeId=2';
+const BASE_STATS_URL = 'http://www.nhl.com/stats/rest/grouped/skaters/season/skatersummary?cayenneExp=seasonId=20152016%20and%20gameTypeId=2';
+
 const statsDb = db.get('stats');
 statsDb.remove({});
 
