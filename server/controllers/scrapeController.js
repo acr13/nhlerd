@@ -11,7 +11,6 @@ const BASE_STATS_URL = 'http://www.nhl.com/stats/rest/grouped/skaters/season/ska
 
 // clear the DB first
 const statsDb = db.get('stats');
-statsDb.remove({});
 
 let index = function (req, res) {
   res.send('scrape');
@@ -22,6 +21,8 @@ let count = 0;
 // Get the stats, then parse the data
 // insert into mongo
 let scrapeStats = function (req, res) {
+  statsDb.remove({});
+
   return rp(BASE_STATS_URL)
     .then(parseStats)
     .then(function (success) {
