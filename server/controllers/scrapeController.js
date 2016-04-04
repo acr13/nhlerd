@@ -21,23 +21,24 @@ let count = 0;
 // Get the stats, then parse the data
 // insert into mongo
 let scrapeStats = function (req, res) {
-  statsDb.remove({});
-
-  return rp(BASE_STATS_URL)
-    .then(parseStats)
-    .then(function (success) {
-      if (success) {
-        res.json({
-          success: true,
-          new_rows: count,
-          message: 'Sucessfully parsed all stats data.'
+  return statsDb.remove({})
+    .then(function () {
+      rp(BASE_STATS_URL)
+        .then(parseStats)
+        .then(function (success) {
+          if (success) {
+            res.json({
+              success: true,
+              new_rows: count,
+              message: 'Sucessfully parsed all stats data.'
+            });
+          } else {
+            res.json({
+              success: false,
+              message: 'Unable to parse stats.'
+            });
+          }
         });
-      } else {
-        res.json({
-          success: false,
-          message: 'Unable to parse stats.'
-        });
-      }
     });
 };
 
