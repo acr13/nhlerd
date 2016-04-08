@@ -4,12 +4,12 @@ const cheerio = require('cheerio');
 const rp = require('request-promise');
 const shortForms = require('../utils/shortForms');
 const R = require('ramda');
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 const BASE_GAMES_URL = 'https://statsapi.web.nhl.com/api/v1/schedule';
 
 let find = function (req, res) {
-  const today = moment().format('YYYY-MM-DD');
+  const today = moment().tz('America/Toronto').format('YYYY-MM-DD');
 
   return rp(BASE_GAMES_URL + '?startDate=' + today + '&endDate=' + today)
     .then(pluckGamesFromResponse)
@@ -20,7 +20,7 @@ let find = function (req, res) {
 
 let findByGameId = function (req, res) {
   const gameId = parseInt(req.params.gameId);
-  const today = moment().format('YYYY-MM-DD');
+  const today = moment().tz('America/Toronto').format('YYYY-MM-DD');
 
   return rp(BASE_GAMES_URL + '?startDate=' + today + '&endDate=' + today)
     .then(pluckGamesFromResponse)
@@ -35,7 +35,7 @@ let findByGameId = function (req, res) {
 
 let findByTeamId = function (req, res) {
   const team = req.params.teamId;
-  const today = moment().format('YYYY-MM-DD');
+  const today = moment().tz('America/Toronto').format('YYYY-MM-DD');
 
   return rp(BASE_GAMES_URL + '?startDate=' + today + '&endDate=' + today)
     .then(pluckGamesFromResponse)
